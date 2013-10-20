@@ -1,6 +1,8 @@
 import yady_classifier.utils
 
-classifiers = ['TitleClassifier', 'DomainClassifier']
+
+classifiers = ['title_classifier', 'domain_classifier']
+
 
 class ClassificationContext:
 	contentTokens = []
@@ -10,12 +12,13 @@ class ClassificationContext:
 	domain = ""
 	tags = []
 
+
 class Classifier:
 	def __init__(self, classification_context = None):
 		self.context = classification_context
 
 	def classify(self):
 		for classifier_name in classifiers:
-			c = yady.utils.class_for_name('yady_classifier.classifier.%s' % (classifier_name.lower()), classifier_name)
+			c = yady_classifier.utils.class_for_class_name(classifier_name)
 			classifier = c(self.context)
 			classifier.classify()
